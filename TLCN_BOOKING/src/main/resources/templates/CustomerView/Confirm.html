@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>T-Rex Bus</title>
+
+<!-- <link rel="stylesheet" href="css/style.css"> -->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+	integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="/def/vendor/bootstrap/bootstrap.min.css">
+<script src="/def/vendor/jquery/jquery.js"></script>
+<script src="/def/vendor/bootstrap/bootstrap.min.js"></script>
+<link href="/def/css/homepage.css" style="text/css" rel="stylesheet">
+<link href="/def/css/confirm.css" style="text/css" rel="stylesheet">
+<link rel="shortcut icon" href="/def/images/icon.ico">
+
+</head>
+<body>
+	<th:block th:include="/tags/header"></th:block>
+	<script type="text/javascript">
+		var totalprice = 0;
+	</script>
+	<div class="main" style="padding-top: 19px;">
+		<div class="custom-nav">
+			<a href="HomeCustomer">Step 1: Choose Location</a> <i
+				class="fas fa-angle-double-right"></i> <a href="#">Step
+				2: Choose Route</a> <i class="fas fa-angle-double-right"></i> <a
+				href="#">Step 3: Choose Seat</a> <i
+				class="fas fa-angle-double-right"></i> <a href="#"
+				style="color: #a84600; text-decoration: underline;">Step 4:
+				Confirm Infomation</a>
+		</div>
+		<div style="padding: 10px;"></div>
+		<div class="ticket row">
+			<div class="col-7">Bus ticket</div>
+			<div class="col-5">Customer info</div>
+		</div>
+		<div class="ticket-main row">
+			<div class="col-7">
+				<div id="title">Route :</div>
+				<div id="title"
+					style="padding-left: 5px; font-weight: 600; font-size: 18px;"
+					th:text="'Date: '+${datestart}"></div>
+				<div class="row route">
+					<div class="col-5">
+						<img src="/def/images/icon.svg" style="width: 30px; height: 30px">
+						<span style="font-weight: bold;"></span>
+						<div style="font-weight: bold;" th:text="${route.startingpoint}"></div>
+					</div>
+					<div class="col">
+						<i style="padding-left: 50px;" class="fas fa-arrow-right"></i>
+						<div style="padding-left: 0px;"
+							th:text="'Expected time:'+${route.timeexpecting}"></div>
+					</div>
+					<div style="font-weight: bold;" th:text="${route.destination}">
+					</div>
+				</div>
+				<div id="title">Ticket :</div>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Seat ID</th>
+							<th>Bus Name</th>
+							<th>Price (VND)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="seat : ${showseats}">
+							<td th:text="${seat}"></td>
+							<td th:text="${route.carid}"></td>
+							<td th:text="${route.price}"></td>
+						</tr>
+						<tr style="color: blue; font-weight: 500;">
+							<td></td>
+							<td>Total price</td>
+							<td th:text="${totalprice}"></td>
+						</tr>
+					</tbody>
+
+				</table>
+			</div>
+			<div class="col-5">
+				<div class="row">
+					<div class="col">
+						<strong>Name : </strong>
+					</div>
+					<div class="col">
+						<p th:text="${profile.name}">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<strong>Gender : </strong>
+					</div>
+					<div class="col">
+						<p th:text="${profile.gender}">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<strong>BirthDay : </strong>
+					</div>
+					<div class="col">
+						<p th:text="${profile.dateofbirth}">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<strong>Phonenumber : </strong>
+					</div>
+					<div class="col">
+						<p th:text="${profile.phonenumber}">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<strong>Mail : </strong>
+					</div>
+					<div class="col">
+						<p th:text="${user.email}">
+					</div>
+				</div>
+				<div class="row" style="padding-top: 50px;">
+
+					<form class="form" action="/addbill" method="post"
+						style="position: absolute; bottom: 30px;">
+					
+						<a href="AddRoute" class="btn btn-link"
+							style="text-decoration: underline; color: black; padding-right: 80px;">Back</a>
+						<input class="btn btn-warning" type="submit" value="Confirm"
+							style="width: 300px;">
+					<input type="hidden" name="totalseat" id="totalseat" />
+					<input type="hidden" name="totalprice" id="totalprice" th:value="${totalprice}" />
+					<input th:type="hidden" th:value="${user.id}" name="userid"/>
+					<input th:type="hidden" th:value="${datestart}" name="departDate"/>
+					<input th:type="hidden" th:value="${route.id}" name="routeid"/>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<th:block th:include="/tags/footer"></th:block>
+</body>
+</html>

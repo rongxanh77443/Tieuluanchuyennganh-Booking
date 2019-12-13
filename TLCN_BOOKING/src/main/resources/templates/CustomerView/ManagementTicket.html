@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>T-Rex Bus</title>
+
+<!-- <link rel="stylesheet" href="css/style.css"> -->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+	integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="/def/vendor/bootstrap/bootstrap.min.css">
+<script src="/def/vendor/jquery/jquery.js"></script>
+<script src="/def/vendor/bootstrap/bootstrap.min.js"></script>
+<link href="/def/css/homepage.css" style="text/css" rel="stylesheet">
+<link rel="shortcut icon" href="/def/images/icon.ico">
+<link href="/def/css/manageticket.css" style="text/css" rel="stylesheet">
+</head>
+<body>
+
+	<th:block th:include="/tags/header"></th:block>
+
+	<div class="main">
+		<div class="tab">
+			<div id="title" align="center">Your Ticket</div>
+			<table class="table table-striped">
+				<thead class="bg-info">
+					<tr>
+						<th>Code Ticket</th>
+						<th>Code Bill</th>
+						<th>Booked date</th>
+						<th>Seat</th>
+						<th>Bus name</th>
+						<th>Starting point</th>
+						<th>Destination</th>
+						<th>Depart time</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="tickets : ${listtickets}">
+						<td th:text="${tickets.id}"></td>
+						<td th:text="${tickets.bill.id}"></td>
+						<td th:text="${tickets.bill.bookingdate}"></td>
+						<td th:text="${tickets.seat}"></td>
+						<td th:text="${tickets.session.car.name}"></td>
+						<td th:text="${tickets.session.route.startingpoint}"></td>
+						<td th:text="${tickets.session.route.destination}"></td>
+						<td th:text="${tickets.session.departdate}"></td>
+						<td><a
+							th:href="@{'/deletetickets/'+${userid}+'/'+${tickets.id}}"
+							>Delete</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

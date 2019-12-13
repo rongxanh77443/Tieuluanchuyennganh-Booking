@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>T-Rex Bus</title>
+<link rel="shortcut icon" href="http://example.com/favicon.ico" />
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+	integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="/def/vendor/bootstrap/bootstrap.min.css">
+<script src="/def/vendor/jquery/jquery.js"></script>
+<script src="/def/vendor/bootstrap/bootstrap.min.js"></script>
+<link href="/def/css/homepage.css" style="text/css" rel="stylesheet">
+<link rel="shortcut icon" href="/def/images/icon.ico">
+</head>
+<body>
+	<th:block th:include="/tags/headerindex"></th:block>
+	<form class="login-form" method="POST" action="/login-user">
+		<div class="limiter">
+			<div class="container-login">
+				<div class="wrap-login">
+
+					<span class="title-login-form">Login Bus Ticket</span>
+					<div class="icon-login-form">
+						<img
+							src="https://img.lovepik.com/original_origin_pic/19/01/07/4b5dcca1acbb615c893638ba35f98b03.png_wh860.png">
+						<div class="wrap-input">
+							<input type="text" name="username">
+						</div>
+						<div class="wrap-input">
+							<input type="password" name="password">
+						</div>
+						<div class="ck">
+							<input type="checkbox" name="">Remember password
+						</div>
+						<div class="input-btn">
+							<button type="submit">Login</button>
+						</div>
+						<div class="input-option">
+							<div class="register">
+								<a href="/register">Register</a>
+							</div>
+							<div class="forget">
+								<a href="/register">Forgot password</a>
+							</div>
+						</div>
+					</div>
+
+
+
+				</div>
+			</div>
+		</div>
+	</form>
+</body>
+</html>

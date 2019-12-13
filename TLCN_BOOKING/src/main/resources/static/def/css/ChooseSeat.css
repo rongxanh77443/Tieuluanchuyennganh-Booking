@@ -1,0 +1,140 @@
+.main{
+	background-image:url("../images/bus.jpg");
+	background-repeat: no-repeat;
+	width:100%;
+	height:860px;
+	background-size: cover;
+	position:absolute;
+}
+.custom-nav i{
+	padding: 6px 20px; 
+	color:#3e59f0;
+}
+
+.custom-nav{
+	font-size: 20px;
+	padding-top: 30px ;
+	padding-bottom: 20px;
+	padding-left: 235px;
+	background-color: #f7f7f7;
+	border: 0.5px solid black;
+}
+
+
+#holder{    
+height:166px;    
+width:426px;
+background-color:#F5F5F5;
+border:1px solid #A4A4A4;
+margin-left:10px;   
+}
+#place {
+position:relative;
+margin:7px;
+}
+#place a{
+font-size:0.6em;
+padding-left: 0px;
+}
+#place li
+{
+ list-style: none outside none;
+ position: absolute; 
+ padding-left: 15px; 
+ padding-top: 10px;   
+}    
+#place li:hover
+{
+background-color:yellow;      
+} 
+#place .seat{
+background:url("../images/available.png") no-repeat scroll 0 0 transparent;
+background-size: cover;
+height:33px;
+width:51.92px;
+display:block;   
+}
+#place .selectedSeat
+{ 
+background-image:url("../images/booked.png");    
+background-size: cover;      
+}
+#place .selectingSeat
+{ 
+background-image:url("../images/selection.png");  
+background-size: cover;      
+}
+/*#place .row-3, #place .row-4{
+margin-top:10px;
+}*/
+#seatDescription li{   
+	list-style: none outside none;
+	height:35px;
+	float:left;
+	padding:15px 10px;
+}
+
+#seatDescription img{
+	width: 50px;
+	height: auto;
+}
+
+.infobill{
+	font-size: 20px;
+	font-weight: bold;
+	padding: 10px;
+}
+.main .row{
+	display: -ms-flexbox;
+  	display: flex;
+  	-ms-flex-wrap: wrap;
+  	flex-wrap: wrap;
+  	width: 1200px;
+  	height: 380px;
+	margin: auto;
+	background-color: #fffcfc;
+}
+.main .col-6{
+	-ms-flex: 0 0 50%;
+  	flex: 0 0 50%;
+  	max-width: 50%;
+
+}
+#title{
+	margin: 15px; 
+	font-size: 25px; 
+	font-family: sans-serif;
+	font-weight: bold;
+}
+#showSeat{
+	font-size: 20px;
+	padding-left: 0px;
+	padding: 10px;
+	font-weight:500;
+	color: blue
+}
+#price{
+	font-size: 18px;
+	color: blue;
+}
+
+.choose{
+	background-color: #fffcfc;
+}
+
+.main{
+	background-image:url("../images/bus.jpg");
+	background-repeat: no-repeat;
+	width:100%;
+	height:860px;
+	background-size: cover;
+	position:absolute;
+}
+
+.col-6 .form{
+	padding: 50px 18px;
+}
+
+ul{
+	margin-left: 0px;
+}

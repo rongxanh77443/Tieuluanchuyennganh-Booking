@@ -1,0 +1,211 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<!-- Required meta tags-->
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="Colorlib Templates">
+<meta name="author" content="Colorlib">
+<meta name="keywords" content="Colorlib Templates">
+<link rel="shortcut icon" href="/def/images/icon.ico">
+<!-- Title Page-->
+<title>ListDetail</title>
+
+<!-- Icons font CSS-->
+
+<link
+	href="/def/vendor/mdi-font/css/material-design-iconic-font.min.css"
+	rel="stylesheet" media="all">
+<link href="/def/vendor/font-awesome-4.7/css/font-awesome.min.css"
+	rel="stylesheet" media="all">
+<!-- Font special for pages-->
+<link
+	href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i"
+	rel="stylesheet">
+
+<!-- Vendor CSS-->
+<link href="def/vendor/select2/select2.min.css" rel="stylesheet"
+	media="all">
+<link href="/def/vendor/datepicker/daterangepicker.css" rel="stylesheet"
+	media="all">
+
+<!-- Bootstrap and Jquery-->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/def/vendor/bootstrap/bootstrap.min.css">
+<script src="/def/vendor/jquery/jquery.js"></script>
+<script src="/def/vendor/bootstrap/bootstrap.min.js"></script>
+
+<!-- <link rel="stylesheet" href="css/style.css"> -->
+<link href="/def/css/index.css" style="text/css" rel="stylesheet">
+<link href="/def/css/main.css" rel="stylesheet" media="all">
+</head>
+
+<body>
+
+	<div class="page-wrapper bg-blue p-t-100 p-b-100 font-robo">
+		<div class="wrapper wrapper--w680">
+			<div class="card card-1">
+				<div class="card-heading"></div>
+				<div class="card-body">
+					<div th:switch=${action}>
+						<div th:case="seller">
+							<h2 class="title">Add New Manager</h2>
+
+
+							<form action="/savenewmanager" method="POST">
+								<input th:type="hidden" th:value="car" name="object">
+								<div class="input-group">
+									<input class="input--style-1" type="text" placeholder="NAME"
+										name="name" pattern="[A-z\s]{5,30}" title="Your name" required>
+								</div>
+								<div class="input-group">
+									<input class="input--style-1" type="text"
+										placeholder="USERNAME" name="username"
+										pattern="[a-zA-Z0-9]{5,20}" title="Your user name" required>
+								</div>
+								<div class="input-group">
+									<input id="password" class="input--style-1" type="password"
+										placeholder="PASSWORD" name="password"
+										pattern="[a-zA-Z0-9]{6,20}" title="Your password" required>
+								</div>
+								<div class="input-group">
+									<input class="input-style-1" placeholder="EMAIL" name="email"
+										type="email" aria-describedby="emailHelp" required
+										title="Your email">
+								</div>
+								<div class="row row-space">
+									<div class="col-12 col-sm-6">
+										<div class="input-group">
+											<input type="date" placeholder="BIRTHDATE" name="dateofbirth"
+												title="Your birthday" max="<%=maxdate %>" required>
+											<i class="birthday"></i>
+										</div>
+									</div>
+									<div class="col-12 col-sm-6">
+										<div class="input-group">
+
+											<div class="rs-select2 js-select-simple select--no-search">
+												<select name="gender" required>
+													<option selected="selected">Male</option>
+													<option>Female</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<input class="input--style-1" type="hidden"
+									placeholder="COUNTRY" name="country" pattern="[A-z\s]{5,30}"
+									title="Country" required th:value="a">
+								<div class="row row-space">
+									<div class="col-12 col-sm-6">
+										<div class="input-group">
+											<input class="input--style-1" type="text"
+												placeholder="PHONE NUMBER" name="phonenumber"
+												pattern="[0]{1}[0-9]{9}" title="Phonenumber has 10 numbers!"
+												required>
+										</div>
+									</div>
+								</div>
+								<div class="p-t-20">
+									<button class="btn btn--radius btn--green" type="submit">Submit</button>
+								</div>
+								<input th:type="hidden" th:value="${user.id}" th:name="userid">
+							</form>
+						</div>
+
+						<div th:case="car">
+							<h2 class="title">Car</h2>
+							<form action="/savenewcar" method="POST">
+								<input th:type="hidden" th:value="car" name="object">
+								<div class="input-group">
+									<input class="input--style-1" type="text" placeholder="Name of car"
+										name="carname"
+										title="Your car name" required>
+								</div>
+								<div class="p-t-20">
+									<button class="btn btn--radius btn--green" type="submit">Submit</button>
+								</div>
+								<input th:type="hidden" th:value="${user.id}" th:name="userid">
+							</form>
+						</div>
+						<div th:case="route">
+							<h2 class="title">Route</h2>
+							<form action="/savenewroute" method="POST">
+								<input th:type="hidden" th:value="${user.id}" name="userid">
+								<input th:type="hidden" th:value="route" name="object">
+								<div class="row row-space">
+									<div class="input-group">
+										<input class="input--style-1" type="text"
+											placeholder="Numbercar" name="carname"
+											pattern="[a-zA-Z0-9]{5,20}" title="Your number car" required>
+									</div>
+								</div>
+								<div class="input-group">
+									<input class="input--style-1" type="text"
+										placeholder="startingpoint" name="startingpoint"
+										pattern="[a-zA-Z0-9]{5,20}" title="Your starting point"
+										required>
+								</div>
+								<div class="input-group">
+									<input class="input--style-1" type="text"
+										placeholder="destination" name="destination"
+										pattern="[a-zA-Z0-9]{5,20}" title="Your destination" required>
+								</div>
+								<div class="input-group">
+									<input class="input--style-1" type="text"
+										placeholder="timestarting" name="timestarting"
+										pattern="[a-zA-Z0-9]{5,20}" title="Your time starting">
+								</div>
+								<div class="input-group">
+									<input class="input--style-1" type="text"
+										placeholder="timeexpecting" name="timeexpecting"
+										pattern="[a-zA-Z0-9]{5,20}" title="Your time expecting">
+								</div>
+								<div class="input-group">
+									<input class="input--style-1" type="text" placeholder="price"
+										name="price" pattern="[a-zA-Z0-9]{5,20}" title="Your price">
+								</div>
+								<div class="p-t-20">
+									<button class="btn btn--radius btn--green" type="submit">Submit</button>
+								</div>
+								<input th:type="hidden" th:value="${user.id}" th:name="userid">
+							</form>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 	<script>
+		var password = document.getElementById("password"), confirm_password = document
+				.getElementById("confirm_password");
+
+		function validatePassword() {
+			if (password.value != confirm_password.value) {
+				confirm_password.setCustomValidity("Password Don't Match");
+			} else {
+				confirm_password.setCustomValidity('');
+			}
+		}
+
+		password.onchange = validatePassword;
+		confirm_password.onkeyup = validatePassword;
+	</script> -->
+	<!-- Jquery JS-->
+	<script src="/def/vendor/jquery/jquery.min.js"></script>
+	<!-- Vendor JS-->
+	<script src="/def/vendor/select2/select2.min.js"></script>
+	<script src="def/vendor/datepicker/moment.min.js"></script>
+	<script src="/def/vendor/datepicker/daterangepicker.js"></script>
+
+	<!-- Main JS-->
+	<script src="/def/js/global.js"></script>
+</body>
+<!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+</html>

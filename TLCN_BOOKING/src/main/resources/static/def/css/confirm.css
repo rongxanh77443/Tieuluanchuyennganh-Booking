@@ -1,0 +1,86 @@
+.main a{
+	color: #3e59f0;
+}
+.main{
+	background-image:url("../images/bus.jpg");
+	background-repeat: no-repeat;
+	width:100%;
+	height:860px;
+	background-size: cover;
+	position:absolute;
+}
+.custom-nav i{
+	padding: 6px 20px; 
+	color:#3e59f0;
+}
+
+.custom-nav{
+	font-size: 20px;
+	padding-top: 30px ;
+	padding-bottom: 20px;
+	padding-left: 180px;
+	background-color: #f7f7f7;
+	border: 0.5px solid black;
+}
+
+.ticket{
+	width: 1300px;
+	background-color: #f5f9ff;
+	font-size: 18px;
+	margin: auto;
+	border-radius: 15px 15px 0 0;
+	border: 0.5px solid black;
+}
+.ticket-main{
+	width: 1300px;
+	font-size: 18px;
+	margin: auto;
+	border: 0.5px solid black;
+}
+
+
+.ticket .col-7{
+	background-color: #56a0f5;
+	font-weight: bold;
+	font-size: 25px;
+	background-color: #56a0f5; 
+	width: 100%; 
+	padding: 15px 30px;
+	border-radius: 15px 0 0 0;
+}
+
+.ticket .col-5{
+	padding: 15px 20px; 
+	font-weight: bold;
+	font-size: 25px; 
+	background-color: #f0a754;
+	border-radius: 0 15px 0 0;
+}
+
+.ticket-main .col-5{
+	background-color: #ffe1b5;
+	padding: 18px;
+}
+.ticket-main .col-7{
+	background-color: #f5f9ff;
+	padding: 18px;
+}
+
+.ticket-main .row{
+	padding: 10px 0px;
+}
+
+#title{
+	font-size: 22px;
+	font-weight: 700;
+
+}
+.route .col-5{
+	padding: 0px;
+	background-color: #f5f9ff;
+	padding-left: 15px;
+}
+#codebill{
+	font-weight: 500;
+	color: #ff9233;
+}

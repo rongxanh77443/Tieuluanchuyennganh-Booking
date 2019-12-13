@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>T-Rex Bus</title>
+
+<!-- <link rel="stylesheet" href="css/style.css"> -->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+	integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="/def/vendor/bootstrap/bootstrap.min.css">
+<script src="/def/vendor/jquery/jquery.js"></script>
+<script src="/def/vendor/bootstrap/bootstrap.min.js"></script>
+<link href="/def/css/homepage.css" style="text/css" rel="stylesheet">
+<link href="/def/css/chooseroute.css" style="text/css" rel="stylesheet">
+<link rel="shortcut icon" href="/def/images/icon.ico">
+</head>
+<body>
+
+	<th:block th:include="/tags/header"></th:block>
+
+	<div class="main" style="padding-top: 19px;">
+		<div class="custom-nav">
+			<a href="Home">Step 1: Choose Location</a> <i
+				class="fas fa-angle-double-right"></i> <a href="#"
+				style="color: #a84600; text-decoration: underline;">Step 2:
+				Choose Route</a> <i class="fas fa-angle-double-right"></i> <a
+				class="btn disabled" href="">Step 3: Choose Seat</a> <i
+				class="fas fa-angle-double-right"></i> <a class="btn disabled"
+				href="">Step 4: Confirm Infomation</a>
+		</div>
+		<div class="container row "
+			style="background-color: #fffbcf; margin: auto; border-radius: 2px; border: 0.5px solid #011329">
+			<div class="col-4">
+				<div style="padding: 10px; padding-left: 50px; font-weight: bolder;">Starting
+					point</div>
+			</div>
+			<div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</div>
+			<div class="col-4">
+				<div style="padding: 10px; padding-left: 50px; font-weight: bolder;">Destination</div>
+			</div>
+			<div class="col-2">
+				<div style="padding: 10px; padding-left: 20px; font-weight: bolder;">Price</div>
+			</div>
+		</div>
+
+		<form action="/addroute" method="post" class="container row"
+			style="background-color: #96b9ff; margin: auto; border-radius: 10px; border: 0.5px solid #011329">
+			<input th:type="hidden" th:value="${user.id}" name="userid">
+
+			<table border="0">
+				<tr th:each="routes : ${listroute}">
+					<td class="col-6"><img src="/def/images/icon.svg"
+						style="padding-right: 10px; width: 50px; height: 50px"> <span
+						style="font-weight: bold;" th:text="${routes.startingpoint}"></span>
+						- <input th:type="hidden" name="startingpoint"
+						th:value="${routes.startingpoint}"> <input type="hidden"
+						name="timestarting" th:value="${routes.timestarting}"></td>
+					<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+					<td class="col-4"><i
+						style="padding-top: 15px; padding-left: 30px;"
+						class="fas fa-arrow-right"></i>
+						<div th:text="${routes.timeexpecting}"></div> <input type="hidden"
+						name="timeexpecting" th:value="${routes.timeexpecting}">
+						&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+
+					<td class="col-6">
+						<div style="padding-top: 14px; padding-left: 50px;">
+							<span style="font-weight: bold;" th:text="${routes.destination}"></span>
+							<input type="hidden" name="destination"
+								th:value="${routes.destination}">
+						</div>
+
+					</td>
+					<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+					<td class="col-4"><input type="hidden" name="idroute"
+						th:value="${routes.id}">
+						<div th:text="${routes.price}+' VNĐ'"></div></td>
+					<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+					<td style="padding-top: 5px;">
+						<button type="submit" class="btn btn-warning">
+							<i class="fas fa-bus"></i> Book
+						</button>
+					</td>
+				</tr>
+			</table>
+			<input th:type="hidden" th:value="${datestart}" name="departDate">
+		</form>
+	</div>
+
+</body>
+</html>

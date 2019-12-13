@@ -1,0 +1,160 @@
+
+.nav-menu{
+    margin-top: 50px;
+}
+
+
+.route{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.time{
+    float: left;
+    width: 250px;
+    
+}
+.time>div {
+    float: left;
+    width: 74px;
+}
+div.label-time{
+    width: 45px;
+    font-weight: bold;
+}
+div.date{
+    width: 250px;
+}
+
+.route{
+    height: 65px;
+    padding-bottom: 15px;
+    padding-top: 10px;
+    border-bottom: 1px solid #CED4DA; 
+}
+
+.route-point{
+    float:left; 
+    width: 400px;
+}
+.route-point>div{
+    float: left;
+    width: 92px;
+}
+div.label-route{
+    width: 52px;
+    font-weight: bold;
+}
+.route-car{
+  float: left;
+  width: 250px;
+}
+.car{
+  width: 140px;
+  float: left;
+}
+.car>div{
+  width: 150px;
+  float: left;
+}
+
+
+.fas{
+  padding-right: 15px; 
+    padding-left: 40px;
+}
+
+#icon{
+    float: left;
+}
+
+div.fa-arrow-right{
+    padding-right: 10px;
+    padding-left: 10px;
+  width: 34px;
+  color:#E54443;
+}
+.fa-clock{
+  padding-left: 20px; 
+  padding-right: 15px;
+}
+
+
+table td, table th{
+    text-align: center;
+}
+
+input{
+
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+
+}
+.col-2 {
+	padding-left: 0px;
+}
+/*.btn-info{
+    background-color: #ffffff;
+    color: #DC7003;
+    border: 0;  
+}
+a.cancel-button{
+    color: #fff;
+    color: #DC7003; 
+}
+
+a.cancel-button:hover{
+    background-color:#ffffff;
+    border: 0;
+    color: #6F2604;
+}*/
+/*.cancel-button:focus, .cancel-button.focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 179, 128, 0.5);
+}*/
+/*.cancel-button:not(:disabled):not(.disabled):active:focus, .cancel-button:not(:disabled):not(.disabled).active:focus,
+.show > .cancel-button.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 179, 128, 0.5);
+}*/
+
+.fa-times{
+    padding: 0;
+}
+
+
+/*button.btn{
+    background-color: #DC7003; 
+    color: #fff;
+    border: 0;
+}
+
+button.btn:hover{
+    color:#ffffff;
+    border: 0;
+    background-color: #6F2604;
+}
+.btn:focus, .btn.focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 179, 128, 0.5);
+}
+.btn:not(:disabled):not(.disabled):active:focus, .btn:not(:disabled):not(.disabled).active:focus,
+.show > .btn.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 179, 128, 0.5);
+  background-color: #DC7003;
+}*/
+.fa-angle-left, .fa-plus{
+    padding: 0;
+}
+.fa-plus{
+    font-size: 12px;
+}
+.booking-ticket{
+    float:right;
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<LINK REL="SHORTCUT ICON"  HREF="/def/images/icon.ico">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>T-Rex Bus</title>
+
+<!-- <link rel="stylesheet" href="css/style.css"> -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<link rel="stylesheet" href="/def/vendor/bootstrap/bootstrap.min.css">
+<script src="/def/vendor/jquery/jquery.js"></script>
+<script src="/def/vendor/bootstrap/bootstrap.min.js" ></script>
+<link href="/def/css/homepage.css" style="text/css" rel="stylesheet">
+<link rel="shortcut icon" href="/def/images/icon.ico">
+</head>
+<body>
+
+	<th:block th:include="/tags/header"></th:block> 
+
+		<article class="bbody">
+		<div class="container search-box">
+			<form class="form-inline form-group form-search" action="FindRoute" method="post" style="padding: 30px;">
+				<input th:type="hidden" th:value="${user.id}" name="userid">
+				<label for="select" style="padding-right: 3px; color: #FFFFFF;"><b>Starting Point:</b></label>
+
+			  	<select name="str" class="custom-select" style="width: 180px;" required>
+
+			  		<option th:each="countrys: ${listCountry}" th:value="${countrys.name}" th:text="${countrys.name}"  selected="selected"></option>
+			  	</select>
+			  	<label for="select" style="padding-left: 40px; padding-right: 3px; color: #FFFFFF;"><b>Destination: </b></label>
+			  	<select name="des" class="custom-select" style="width: 180px;" required  >
+			  		<option th:each="countrys: ${listCountry}" th:value="${countrys.name}" th:text="${countrys.name}"  selected="selected"></option>
+			  	</select>
+			  	<label for="select" style="padding-left: 40px;padding-right: 3px; color: #FFFFFF;"><b>Depart Date: </b></label>
+			  	<input  class="custom-date form-control" type="date" style="margin-right: 30px; width: 180px;" required name="departDate" min="<%=mindate%>" max="<%=maxdate%>">
+			  	<input style="width: 72px;height: 35px" type="submit" class="btn btn-primary btn-sm btn-submit" value="Find">
+	
+			</form>
+	</div>
+	</article>
+	
+	<th:block th:include="/tags/footer"></th:block> 
+</body>
+</html>

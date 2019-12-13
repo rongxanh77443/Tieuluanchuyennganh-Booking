@@ -1,0 +1,93 @@
+html,body{
+  height: 100%;
+}
+header{
+	height:66px;
+}
+nav{
+	background-color: #FFFFFF;
+}
+.task-bar a{
+	color: #DC7003;
+}
+#hi-user{
+	color: #DC7003!important;
+}
+.task-bar button{
+	background-color: #DC7003!important;
+	border-color: #DC7003!important;
+}
+.bbody{
+	background-image:url("../images/bus.jpg");
+	background-repeat: no-repeat;
+	width:100%;
+	min-height: 100vh;
+  	background-size: cover;
+  	padding-top: 100px;
+  	padding-bottom: 100px;
+}
+.menu-user{
+	background-color: #FFFFFF!important;
+}
+.dropdown-menu a{
+	background-color: #FFFFFF!important;
+}
+.search-box{
+	background-color: rgba(0,0,0,0.5);
+	border-radius: 10px;	
+	margin-top: 14%;
+}
+.btn-submit{
+	background-color: #DC7003!important;
+	border-color: #DC7003!important;
+}
+
+.custom-date {
+  display: inline-block;
+  width: 16%;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.375rem 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  vertical-align: middle;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+.custom-date:focus {
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.custom-date:focus::-ms-value {
+  color: #495057;
+  background-color: #fff;
+}
+
+a:hover {
+    color: #6F2604;
+    text-decoration: underline;
+}
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #DC7003;
+}
+
+.dropdown-item:focus, .dropdown-item:hover {
+    color: #6F2604;
+    text-decoration: none;
+
+}
+
+.dropdown-item:avtive{
+	background-color:  #DC7003;
+}
+
+footer{
+	position: relative;
+	top: 80px;
+}

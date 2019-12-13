@@ -1,0 +1,283 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>T-Rex Bus</title>
+
+<!-- <link rel="stylesheet" href="css/style.css"> -->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+	integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="/def/vendor/bootstrap/bootstrap.min.css">
+<script src="/def/vendor/jquery/jquery.js"></script>
+<script src="/def/vendor/bootstrap/bootstrap.min.js"></script>
+<link href="/def/css/homepage.css" style="text/css" rel="stylesheet">
+<link href="/def/css/ChooseSeat.css" style="text/css" rel="stylesheet">
+<link rel="shortcut icon" href="/def/images/icon.ico">
+<style>
+table {
+	border-collapse: separate;
+}
+
+table td {spacing
+	
+}
+</style>
+</head>
+<body>
+	<script type="text/javascript" th:inline="javascript">
+		var totalseat = 0;
+		var showseats = [];
+		if (this.id=="Seat1")
+			document
+			.getElementById("s1").value = "no";
+		if (this.id=="Seat2")
+					document
+					.getElementById("s2").value = "no";
+		if (this.id=="Seat3")
+							document
+							.getElementById("s3").value = "no";
+		if (this.id=="Seat4")
+									document
+									.getElementById("s4").value = "no";
+		if (this.id=="Seat5")
+											document
+											.getElementById("s5").value = "no";
+		if (this.id=="Seat6")
+													document
+													.getElementById("s6").value = "no";
+		if (this.id=="Seat7")
+															document
+															.getElementById("s7").value = "no";
+		if (this.id=="Seat8")
+																	document
+																	.getElementById("s8").value = "no";
+		if (this.id=="Seat9")
+																			document
+																			.getElementById("s9").value = "no";
+		if (this.id=="Seat10")
+																					document
+																					.getElementById("s10").value = "no";
+		if (this.id=="Seat11")
+																							document
+																							.getElementById("s11").value = "no";
+		if (this.id=="Seat12")
+																									document
+																									.getElementById("s12").value = "no";
+		$(document)
+				.ready(
+						function() {
+							$('.seatchoose')
+									.on(
+											'click',
+											function() {
+
+												var image = document
+														.getElementById(this.id);
+												var showseat = document
+														.getElementById("showSeat");
+												var totalseatchoosed = document
+														.getElementById("totalSeatChoosed");
+
+												if (image.getAttribute('src') == "/def/images/available.png") {
+													image.src = "/def/images/selection.png";
+													totalseat += 1;
+													showseats.push(this.id
+															.toString());
+													if (this.id=="Seat1")
+														document
+														.getElementById("s1").value = this.id;
+													if (this.id=="Seat2")
+																document
+																.getElementById("s2").value = this.id;
+													if (this.id=="Seat3")
+																		document
+																		.getElementById("s3").value = this.id;
+													if (this.id=="Seat4")
+																				document
+																				.getElementById("s4").value = this.id;
+													if (this.id=="Seat5")
+																						document
+																						.getElementById("s5").value = this.id;
+													if (this.id=="Seat6")
+																								document
+																								.getElementById("s6").value = this.id;
+													if (this.id=="Seat7")
+																										document
+																										.getElementById("s7").value = this.id;
+													if (this.id=="Seat8")
+																												document
+																												.getElementById("s8").value = this.id;
+													if (this.id=="Seat9")
+																														document
+																														.getElementById("s9").value = this.id;
+													if (this.id=="Seat10")
+																																document
+																																.getElementById("s10").value = this.id;
+													if (this.id=="Seat11")
+																																		document
+																																		.getElementById("s11").value = this.id;
+													if (this.id=="Seat12")
+																																				document
+																																				.getElementById("s12").value = this.id;
+
+												} else {
+													image.src = "/def/images/available.png";
+													totalseat -= 1;
+													showseats.splice(showseats
+															.indexOf(this.id),
+															1)
+															if (this.id=="Seat1")
+																document
+																.getElementById("s1").value = "no";
+															if (this.id=="Seat2")
+																		document
+																		.getElementById("s2").value = "no";
+															if (this.id=="Seat3")
+																				document
+																				.getElementById("s3").value = "no";
+															if (this.id=="Seat4")
+																						document
+																						.getElementById("s4").value = "no";
+															if (this.id=="Seat5")
+																								document
+																								.getElementById("s5").value = "no";
+															if (this.id=="Seat6")
+																										document
+																										.getElementById("s6").value = "no";
+															if (this.id=="Seat7")
+																												document
+																												.getElementById("s7").value = "no";
+															if (this.id=="Seat8")
+																														document
+																														.getElementById("s8").value = "no";
+															if (this.id=="Seat9")
+																																document
+																																.getElementById("s9").value = "no";
+															if (this.id=="Seat10")
+																																		document
+																																		.getElementById("s10").value = "no";
+															if (this.id=="Seat11")
+																																				document
+																																				.getElementById("s11").value = "no";
+															if (this.id=="Seat12")
+																																						document
+																																						.getElementById("s12").value = "no";
+
+													
+												}
+
+												document
+														.getElementById("showSeat").innerHTML = showseats;
+												document
+														.getElementById("totalSeatChoosed").innerHTML = totalseat;
+												document
+														.getElementById("totalseat").value = totalseat;
+											});
+						});
+	</script>
+	<th:block th:include="/tags/header"></th:block>
+
+	<div class="main" style="padding-top: 19px;">
+		<div class="custom-nav">
+			<a href="HomeCustomer">Step 1: Choose Location</a> <i
+				class="fas fa-angle-double-right"></i> <a href="#">Step
+				2: Choose Route</a> <i class="fas fa-angle-double-right"></i> <a
+				href="#" style="color: #a84600; text-decoration: underline;">Step
+				3: Choose Seat</a> <i class="fas fa-angle-double-right"></i> <a
+				class="btn disabled" href="">Step 4: Confirm Infomation</a>
+		</div>
+		<div style="padding: 10px;"></div>
+		<div class="row choose">
+			<div class="col-6">
+				<div id="title">Choose seats below:</div>
+				<table id="holder">
+					<col width="90">
+					<tr>
+						<td><img class="seatchoose" id="Seat1"
+							src="/def/images/available.png" width="40" th:text="1"></td>
+						<td><img class="seatchoose" id="Seat2"
+							src="/def/images/available.png" width="40" th:text="2"></td>
+						<td><img class="seatchoose" id="Seat3"
+							src="/def/images/available.png" width="40" th:text="3"></td>
+						<td><img class="seatchoose" id="Seat4"
+							src="/def/images/available.png" width="40" th:text="4"></td>
+					</tr>
+					<tr>
+						<td><img class="seatchoose" id="Seat5"
+							src="/def/images/available.png" width="40" th:text="5"></td>
+						<td><img class="seatchoose" id="Seat6"
+							src="/def/images/available.png" width="40" th:text="6"></td>
+						<td><img class="seatchoose" id="Seat7"
+							src="/def/images/available.png" width="40" th:text="7"></td>
+						<td><img class="seatchoose" id="Seat8"
+							src="/def/images/available.png" width="40" th:text="8"></td>
+					</tr>
+					<tr>
+						<td><img class="seatchoose" id="Seat9"
+							src="/def/images/available.png" width="40" th:text="9"></td>
+						<td><img class="seatchoose" id="Seat10"
+							src="/def/images/available.png" width="40" th:text="10"></td>
+						<td><img class="seatchoose" id="Seat11"
+							src="/def/images/available.png" width="40" th:text="11"></td>
+						<td><img class="seatchoose" id="Seat12"
+							src="/def/images/available.png" width="40" th:text="12"></td>
+					</tr>
+				</table>
+				<div id="seatDescription">
+					<ul>
+						<li><img src="/def/images/available.png">
+							<div>Available Seat</div></li>
+						<li><img src="/def/images/booked.png">
+							<div>Booked Seat</div></li>
+						<li><img src="/def/images/selection.png">
+							<div>Selected Seat</div></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="infobill">
+					<div id="title">
+						Seat ID:
+						<div class="showSeat" id="showSeat"></div>
+						Total Number Seat Choosed:
+						<div id="totalSeatChoosed"></div>
+					</div>
+					<div id="title">
+						Price
+						<div id="price">
+							<p th:text=${route.price}>
+						</div>
+					</div>
+				</div>
+				<form class="form" action="confirm" method="POST">
+					<input type="hidden" name="totalseat" id="totalseat" /> <input
+						id="s1" th:type="hidden" name="s1"> <input id="s2"
+						th:type="hidden" name="s2"> <input id="s3"
+						th:type="hidden" name="s3"> <input id="s4"
+						th:type="hidden" name="s4"> <input id="s5"
+						th:type="hidden" name="s5"> <input id="s6"
+						th:type="hidden" name="s6"> <input id="s7"
+						th:type="hidden" name="s7"> <input id="s8"
+						th:type="hidden" name="s8"> <input id="s9"
+						th:type="hidden" name="s9"> <input id="s10"
+						th:type="hidden" name="s10"> <input id="s11"
+						th:type="hidden" name="s11"> <input id="s12"
+						th:type="hidden" name="s12"> <a href="FindRoute"
+						class="btn btn-link"
+						style="text-decoration: underline; color: black; padding-right: 80px;">Back</a>
+					<button id="submit" class="btn btn-primary" type="submit"
+						style="width: 200px">Next</button>
+					<input th:type="hidden" th:value="${user.id}" name="userid">
+					<input th:type="hidden" th:value="${datestart}" name="departDate">
+					<input th:type="hidden" th:value="${route.id}" name="idroute">
+				</form>
+			</div>
+		</div>
+	</div>
+	<th:block th:include="/tags/footer"></th:block>
+
+</body>
+</html>
