@@ -25,7 +25,7 @@
 	th:href="@{bootstrap.min.css}" />
 </head>
 <body class="hold-transition sidebar-mini">
-	<input type="hidden" name="userid" value="${user.id}">
+	<input type="hidden" name="userid" >
 	<div class="wrapper">
 		<!-- Navbar -->
 		<nav
@@ -60,7 +60,7 @@
 							class="img-circle elevation-2" alt="User Image">
 					</div>
 					<div class="info">
-						<a href="#" class="d-block">Phương Mai</a>
+						<a href="#" class="d-block" th:text="'Xin chào, '+${profile.name}"></a>
 					</div>
 				</div>
 

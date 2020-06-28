@@ -2,15 +2,12 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<LINK REL="SHORTCUT ICON"  HREF="/def/images/icon.ico">
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>T-Rex Bus</title>
-
-<!-- <link rel="stylesheet" href="css/style.css"> -->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
 <link rel="stylesheet" href="/def/vendor/bootstrap/bootstrap.min.css">
-<script src="/def/vendor/jquery/jquery.js"></script>
-<script src="/def/vendor/bootstrap/bootstrap.min.js" ></script>
 <link href="/def/css/homepage.css" style="text/css" rel="stylesheet">
 <link rel="shortcut icon" href="/def/images/icon.ico">
 </head>
@@ -18,27 +15,136 @@
 
 	<th:block th:include="/tags/headerindex"></th:block>
 
-		<article class="bbody">
+	<article class="bbody">
 		<div class="container search-box">
-			<form class="form-inline form-group form-search" action="/login" method="get" style="padding: 30px;">
-				<label for="select" style="padding-right: 3px; color: #FFFFFF;"><b>Starting Point:</b></label>
+			<form class="form-inline form-group form-search" action="/login"
+				method="get" style="padding: 30px;">
+				<label for="select" style="padding-right: 3px; color: #FFFFFF;"><b>Starting
+						Point:</b></label> <select name="str" class="custom-select"
+					style="width: 180px;" required>
 
-			  	<select name="str" class="custom-select" style="width: 180px;" required>
+					<option th:each="countrys: ${listCountry}"
+						th:value="${countrys.name}" th:text="${countrys.name}"
+						selected="selected"></option>
+				</select> <label for="select"
+					style="padding-left: 40px; padding-right: 3px; color: #FFFFFF;"><b>Destination:
+				</b></label> <select name="des" class="custom-select" style="width: 180px;"
+					required>
+					<option th:each="countrys: ${listCountry}"
+						th:value="${countrys.name}" th:text="${countrys.name}"
+						selected="selected"></option>
+				</select> <label for="select"
+					style="padding-left: 40px; padding-right: 3px; color: #FFFFFF;"><b>Depart
+						Date: </b></label> <input class="custom-date form-control" type="date"
+					style="margin-right: 30px; width: 180px;" required
+					name="departDate" min="<%=mindate%>" max="<%=maxdate%>"> <input
+					style="width: 72px; height: 35px" type="submit"
+					class="btn btn-primary btn-sm btn-submit" value="Find">
 
-			  		<option th:each="countrys: ${listCountry}" th:value="${countrys.name}" th:text="${countrys.name}"  selected="selected"></option>
-			  	</select>
-			  	<label for="select" style="padding-left: 40px; padding-right: 3px; color: #FFFFFF;"><b>Destination: </b></label>
-			  	<select name="des" class="custom-select" style="width: 180px;" required  >
-			  		<option th:each="countrys: ${listCountry}" th:value="${countrys.name}" th:text="${countrys.name}"  selected="selected"></option>
-			  	</select>
-			  	<label for="select" style="padding-left: 40px;padding-right: 3px; color: #FFFFFF;"><b>Depart Date: </b></label>
-			  	<input  class="custom-date form-control" type="date" style="margin-right: 30px; width: 180px;" required name="departDate" min="<%=mindate%>" max="<%=maxdate%>">
-			  	<input style="width: 72px;height: 35px" type="submit" class="btn btn-primary btn-sm btn-submit" value="Find">
-	
 			</form>
-	</div>
 	</article>
-	
+	<h2 class="slogan">Please choose where you wanna go! We'll help you!</h2>
+	<div class="content">
+		<div class="row">
+			<div class="col-4">
+				<img src="http://bit.ly/37n9QUC" alt="Sapa"
+					style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px;">
+				<div id="introduce">
+					<hr>
+					<h4>Departure: Ho Chi Minh</h4>
+					<h4>Destination: Sa Pa</h4>
+					<p>Sa Pa is a tourist destination about 30 km from the center
+						of Lao Cai city.Sapa Town is always immersed in floating clouds,
+						creating a strange and beautiful fantasy. Here, there is an
+						invaluable resource that is cool fresh year-round climate, with an
+						average temperature of 15-18°C.</p>
+				</div>
+			</div>
+			<div class="col-4">
+				<img src="http://bit.ly/2QBj8Gt" alt="Đà Lạt"
+					style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px;">
+				<div id="introduce" style="font-size: 16px; text-align: center;">
+					<hr>
+					<h4>Departure: Ho Chi Minh</h4>
+					<h4>Destination: Da Lat</h4>
+					<p>With an altitude of 1,500 meters above sea level and
+						surrounded by mountains and forest, Da Lat inherits a mild and
+						mild mountainous climate year round. Thanks to its mild climate,
+						beautiful natural landscapes and rich architectural heritage,
+						Dalat is also known by many other names such as "City of
+						thousands" or "Little Paris".</p>
+				</div>
+			</div>
+			<div class="col-4">
+				<img src="https://bit.ly/3fMpvRp" alt="Đà Nẵng"
+					style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px;">
+				<div id="introduce">
+					<hr>
+					<h4>Departure: Ho Chi Minh</h4>
+					<h4>Destination: Da Nang</h4>
+					<p>Da Nang is located in the middle of Vietnam, playing an
+						important role in both socio-economic and national
+						defense-security of the Central region - Central Highlands and the
+						whole country. In 2018, Da Nang was selected to represent Vietnam
+						in the Top 10 Best Places to Live Abroad by the Travel and Invest
+						Overseas Travel Magazine.</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-4">
+				<img src="https://bit.ly/3by7J1e" alt="Nha Trang"
+					style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px;">
+				<div id="introduce">
+					<hr>
+					<h4>Departure: Ho Chi Minh</h4>
+					<h4>Destination: Nha Trang</h4>
+					<p>Nha Trang is well known for its beaches and scuba diving and
+						has developed into a popular destination for international
+						tourists, attracting large numbers of backpackers, as well as more
+						affluent travelers on the south-east Asia circuit; it is already
+						very popular with Vietnamese tourists, with Nha Trang Bay widely
+						considered as among the world's most beautiful bays.</p>
+				</div>
+			</div>
+			<div class="col-4">
+				<img src="http://bit.ly/2s3q4SD" alt="Hà Nội"
+					style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px;">
+				<div id="introduce" style="font-size: 16px; text-align: center;">
+					<hr>
+					<h4>Departure: Ho Chi Minh</h4>
+					<h4>Destination: Ha Noi</h4>
+					<p>Hanoi is the capital of Vietnam. It covers an area of
+						3,328.9 square kilometres. With an estimated population of 7.7
+						million as of 2018, it is the second largest city in Vietnam. The
+						metropolitan area, encompassing nine additional neighbouring
+						provinces, has an estimated population of 16 million. Located in
+						the central area of the Red River Delta, Hanoi is the commercial,
+						cultural, and educational centre of Northern Vietnam.</p>
+				</div>
+			</div>
+			<div class="col-4">
+				<img src="http://bit.ly/37i0cmd" alt="Vũng Tàu"
+					style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px;">
+				<div id="introduce">
+					<hr>
+					<h4>Departure: Ho Chi Minh</h4>
+					<h4>Destination: Vung Tau</h4>
+					<p>Vung Tau is the largest city and former capital of Ba
+						Ria-Vung Tau Province in Vietnam. The city area is 140 square
+						kilometres (54 square miles), consists of 13 urban wards and one
+						commune of Long Son Islet. Vung Tau was the capital of the
+						province until it was replaced by the much smaller Bà Rịa city on
+						2 May 2012. The city is also the crude oil extraction center of
+						Vietnam.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<th:block th:include="/tags/footer"></th:block> 
+
+	<script src="/def/vendor/jquery/jquery.js"></script>
+	<script src="/def/vendor/bootstrap/bootstrap.min.js"></script>
 </body>
 </html>

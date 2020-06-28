@@ -1,6 +1,5 @@
 package com.TLCN_BOOKING.controllers;
 
-import java.lang.management.MemoryType;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -12,11 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.TLCN_BOOKING.Services.UserService_1;
 import com.TLCN_BOOKING.Services.billService;
 import com.TLCN_BOOKING.Services.carService;
 import com.TLCN_BOOKING.Services.countryService;
@@ -25,7 +22,6 @@ import com.TLCN_BOOKING.Services.routeService;
 import com.TLCN_BOOKING.Services.seatService;
 import com.TLCN_BOOKING.Services.sessionService;
 import com.TLCN_BOOKING.Services.ticketService;
-import com.TLCN_BOOKING.Services.userService;
 import com.TLCN_BOOKING.models.Bill;
 import com.TLCN_BOOKING.models.Customer;
 import com.TLCN_BOOKING.models.Route;
@@ -45,7 +41,8 @@ public class CustomerController {
 	routeService routeSv;
 
 	@Autowired
-	userService userSv;
+	UserService_1 userService;
+//	userService userService;
 
 	@Autowired
 	billService billSv;
@@ -74,7 +71,7 @@ public class CustomerController {
 
 		System.out.println("Buoc 2: Chon Route");
 
-		request.setAttribute("user", userSv.findById(Integer.parseInt(userid)));
+		request.setAttribute("user", userService.findById(Integer.parseInt(userid)));
 
 		System.out.println("Diem bat da chon: " + str);
 		System.out.println("Diem don da chon: " + des);
@@ -91,7 +88,7 @@ public class CustomerController {
 	@PostMapping("/addroute")
 	public String addroute(@RequestParam("userid") String userid, @RequestParam("departDate") String date,
 			@RequestParam("idroute") int idroute, HttpServletRequest request) {
-		request.setAttribute("user", userSv.findById(Integer.parseInt(userid)));
+		request.setAttribute("user", userService.findById(Integer.parseInt(userid)));
 		System.out.println("Buoc 3: Chon Seat");
 		Route routechoosed = routeSv.findById(idroute);
 		request.setAttribute("route", routechoosed);
@@ -107,8 +104,8 @@ public class CustomerController {
 			@RequestParam("s7") String seat7, @RequestParam("s8") String seat8, @RequestParam("s9") String seat9,
 			@RequestParam("s10") String seat10, @RequestParam("s11") String seat11, @RequestParam("s12") String seat12,
 			HttpServletRequest request) {
-		request.setAttribute("user", userSv.findById(Integer.parseInt(userid)));
-		request.setAttribute("profile", customerSv.findByUser(userSv.findById(Integer.parseInt(userid))));
+		request.setAttribute("user", userService.findById(Integer.parseInt(userid)));
+		request.setAttribute("profile", customerSv.findByUser(userService.findById(Integer.parseInt(userid))));
 		System.out.println("Buoc 4: Confirm");
 		Route routechoosed = routeSv.findById(idroute);
 		request.setAttribute("route", routechoosed);
@@ -183,12 +180,12 @@ public class CustomerController {
 
 		System.out.println("User them : " + userid);
 
-		request.setAttribute("profile", customerSv.findByUser(userSv.findById(Integer.parseInt(userid))));
-		request.setAttribute("user", userSv.findById(Integer.parseInt(userid)));
+		request.setAttribute("profile", customerSv.findByUser(userService.findById(Integer.parseInt(userid))));
+		request.setAttribute("user", userService.findById(Integer.parseInt(userid)));
 		request.setAttribute("userid", (Integer.parseInt(userid)));
 		request.setAttribute("listCountry", countrySv.findAllcountry());
 
-		Bill bill = new Bill(customerSv.findByUser(userSv.findById(Integer.parseInt(userid))),
+		Bill bill = new Bill(customerSv.findByUser(userService.findById(Integer.parseInt(userid))),
 				java.time.LocalDate.now().toString(),
 				carSv.findById(routeSv.findById(Integer.parseInt(routeid)).getCarid()).getId(),
 				Integer.parseInt(totalprice));
@@ -203,7 +200,7 @@ public class CustomerController {
 			ticketSv.saveTicket(ticket);
 		}
 
-		Customer customer = customerSv.findByUser(userSv.findById(Integer.parseInt(userid)));
+		Customer customer = customerSv.findByUser(userService.findById(Integer.parseInt(userid)));
 		Collection<Bill> bill1s = billSv.findAllByCustomer(customer);
 
 		System.out.println(bill1s.size() + "               Size  Bill");
@@ -222,9 +219,9 @@ public class CustomerController {
 	@GetMapping(value = "/deletetickets/{userid}/{ticketid}")
 	public String deleteUser(@PathVariable("userid") String userid, @PathVariable("ticketid") int ticketid,
 			HttpServletRequest request) {
-		request.setAttribute("user", userSv.findById(Integer.parseInt(userid)));
+		request.setAttribute("user", userService.findById(Integer.parseInt(userid)));
 		request.setAttribute("userid", userid);
-		Customer customer = customerSv.findByUser(userSv.findById(Integer.parseInt(userid)));
+		Customer customer = customerSv.findByUser(userService.findById(Integer.parseInt(userid)));
 		System.out.println("Xoa ve cua khach hang: " + customer.getName());
 
 		Collection<Bill> bills = billSv.findAllByCustomer(customer);
@@ -245,20 +242,20 @@ public class CustomerController {
 	}
 	@GetMapping(value="/Homeuser/{userid}")
 	public String homeuser(@PathVariable("userid") String userid,HttpServletRequest request) {
-		User user= userSv.findById(Integer.parseInt(userid));
+		User user= userService.findById(Integer.parseInt(userid));
 		request.setAttribute("user", user);
 		request.setAttribute("userid", userid);
 		request.setAttribute("profile",
-				customerSv.findByUser(userSv.findById(Integer.parseInt(userid))));
+				customerSv.findByUser(userService.findById(Integer.parseInt(userid))));
 		request.setAttribute("listCountry", countrySv.findAllcountry());
 		return "/CustomerView/Home";
 	}
 	@GetMapping("/CustomerViewManagementTicket/{userid}")
 	public String managerticket(@PathVariable("userid") String userid,HttpServletRequest request) {
-		User user= userSv.findById(Integer.parseInt(userid));
+		User user= userService.findById(Integer.parseInt(userid));
 		request.setAttribute("userid", userid);
 		request.setAttribute("user", user);
-		Customer customer = customerSv.findByUser(userSv.findById(Integer.parseInt(userid)));
+		Customer customer = customerSv.findByUser(userService.findById(Integer.parseInt(userid)));
 		Collection<Bill> bill1s = billSv.findAllByCustomer(customer);
 
 		System.out.println(bill1s.size() + "               Size  Bill");
@@ -273,4 +270,5 @@ public class CustomerController {
 		request.setAttribute("listtickets", listtickets);
 		return "/CustomerView/ManagementTicket";
 	}
+	
 }

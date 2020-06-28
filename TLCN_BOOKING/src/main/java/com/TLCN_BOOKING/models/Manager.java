@@ -2,6 +2,7 @@ package com.TLCN_BOOKING.models;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-@Entity(name="profilemanagers")
+@Entity(name="profileemployees")
 public class Manager {
 
 	@Id
@@ -33,8 +34,8 @@ public class Manager {
 	@Column(name="showprofile")	
 	private Integer showprofile;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="userid")
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="userid", referencedColumnName = "id")
 	private User user;
 
 	public Manager() {

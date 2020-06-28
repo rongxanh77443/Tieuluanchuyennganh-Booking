@@ -19,7 +19,7 @@
 			<li class="nav-item" style="padding-right: 20px;"><a
 				class="nav-link" href="#" style="font-weight: bolder">SUPPORT</a></li>
 			<div class="text-primary" id="hi-user"
-				style="padding-top: 15px; padding-right: 10px">Xin Chào</div>
+				style="padding-top: 15px; padding-right: 10px" th:text="'Xin chào, '+ ${#request.userPrincipal.name}"></div>
 			<div class="dropdown float-right" style="padding-top: 10px;">
 				<button type="button" class="btn btn-primary "
 					data-toggle="dropdown">
@@ -27,8 +27,9 @@
 				</button>
 				<div class="dropdown-menu dropdown-menu-right bg-info menu-user">
 					<a class="dropdown-item" href="#">View Profile</a> <a
-						class="dropdown-item" href="@{'/CustomerViewManagementTicket/'+${user.id}}">Manage Ticket</a> <a
-						class="dropdown-item" href="/login">Logout</a>
+						class="dropdown-item" href="@{'/CustomerViewManagementTicket/'+${user.id}}">Manage Ticket</a> 
+						<a
+						class="dropdown-item" href="/logout">Logout</a>
 				</div>
 			</div>
 		</ul>

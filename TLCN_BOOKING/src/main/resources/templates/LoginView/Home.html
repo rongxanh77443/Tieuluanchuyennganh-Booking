@@ -1,45 +1,249 @@
-<!DOCTYPE HTML>
-
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>T-Rex Bus</title>
-<link rel="shortcut icon" href="http://example.com/favicon.ico" />
-<!-- <link rel="stylesheet" href="css/style.css"> -->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-<link rel="stylesheet" href="/def/vendor/bootstrap/bootstrap.min.css">
-<script src="/def/vendor/jquery/jquery.js"></script>
-<script src="/def/vendor/bootstrap/bootstrap.min.js" ></script>
-<link href="/def/css/homepage.css" style="text/css" rel="stylesheet">
-<link rel="shortcut icon" href="/def/images/icon.ico">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Welcome to T-Rex Bus</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+    <link rel="stylesheet" href="def/vendor/bootstrap/bootstrap.min.css">
+    <script src="def/vendor/jquery/jquery.js"></script>
+    <script src="def/vendor/bootstrap/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="test.css">
+    <link rel="shortcut icon" href="def/images/icon.ico">
 </head>
+
 <body>
+    <!-- Header -->
+    <header class="header">
 
- 	<th:block th:include="/tags/header"></th:block>
-	
-	<article class="bbody">
-		<div class="container search-box">
-			<form class="form-inline form-group form-search" action="Login" method="post" style="padding: 30px;">
-				<label for="select" style="padding-right: 3px; color: #FFFFFF;"><b>Starting Point:</b></label>
+        <nav class="navbar navbar-expand-lg navbar-primary justify-content-between fixed-top task-bar">
+            <a class="navbar-brand" href="home.html"> <img src="def/images/logo-1.jpg" width="90" height="40"
+                    class="d-inline-block" alt="">
+            </a>
+            <ul class="nav nav-pills">
+                <li class="nav-item active">
+                    <a class="a nav-link" href="#" style="font-weight: bolder">HOME
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" style="font-weight: bolder">ABOUT
+                    </a>
+                </li>
+                <li class="nav-item" style="padding-right: 10px;">
+                    <a class="nav-link" href="#" style="font-weight: bolder">SUPPORT
+                    </a>
+                </li>
+                <div class="text-primary" id="hi-user" style="padding-top: 8px;padding-right: 10px;">Hi username,
+                </div>
+                <!-- Dropdown when user don't login -->
+                <div class="dropdown float-right">
+                    <button type="button" class="btn btn-primary " id="avartar" data-toggle="dropdown">
+                        <i class=" fas fa-user"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right bg-info menu-user">
+                        <a class="dropdown-item" href="ProfileCustomer">View Profile</a>
+                        <a class="dropdown-item" href="ListTicket">Manage Ticket</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="home.html">Logout</a>
+                    </div>
+                </div>
+            </ul>
+        </nav>
+    </header>
+    <!-- Header -->
+    <!-- Search box -->
+    <section class="bbody">
+        <div class="container search-box">
+            <form class="form-inline form-group form-search" action="/login" method="get">
+                <label for="select">
+                    <b>Starting Point:</b>
+                </label>
+                <select name="str" class="custom-select" style="width: 200px;" required>
+                    <option th:each="countrys: ${listCountry}" th:value="${countrys.name}" th:text="${countrys.name}"
+                        selected="selected"></option>
+                </select>
+                <label for="select">
+                    <b>Destination:</b>
+                </label>
+                <select name="des" class="custom-select" style="width: 200px;" required>
+                    <option th:each="countrys: ${listCountry}" th:value="${countrys.name}" th:text="${countrys.name}"
+                        selected="selected">
+                    </option>
+                </select>
+                <label for="select" >
+                    <b>Depart Date: </b>
+                </label>
+                <input class="custom-date form-control" type="date" style="width: 180px;" required
+                    name="departDate" min="mindate" max="maxdate">
+                <input type="submit" 
+                    class="btn btn-primary btn-sm btn-submit" value="Search">
+            </form>
+        </div>
+    </section>
+    <!-- Search box -->
+    <!-- Instruction -->
+    <article class="listplace"> 
+        <h4 class="instruction">
+            <i class="fa fa-book"></i><a>Departure from the major cities</a>
+        </h4>
+        <div class="content">
+            <div class="row">
+                <div class="col-4">
+                    <img src="http://bit.ly/37n9QUC" alt="Sapa"
+                        style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px;">
+                    <div id="introduce">
+                        <ul>
+                            <li><i class="fa fa-bus"></i> Departure: <a>Sa Pa</a></li>
+                            <li><i class="fa fa-phone"></i> Hotline: <a>1900 6067</a></li>
+                            <li><i class="fa fa-map-marker"></i> Destination: Da Lat, Nha Trang, Can Tho,...</li>
+                        </ul>
+                        <div class="view-detail">
+                            <b><i class="fa fa-angle-double-right"></i><a href="#"> View detail</a></b>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <img src="http://bit.ly/2QBj8Gt" alt="Đà Lạt"
+                        style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px;">
+                    <div id="introduce">
+                        <ul>
+                            <li><i class="fa fa-bus"></i> Departure: <a>Da Lat</a></li>
+                            <li><i class="fa fa-phone"></i> Hotline: <a>1900 6067</a></li>
+                            <li><i class="fa fa-map-marker"></i> Destination: Ho Chi Minh, Ha Noi, Nha Trang,...</li>
+                        </ul>
+                        <div class="view-detail">
+                            <b><i class="fa fa-angle-double-right"></i><a href="#"> View detail</a></b>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <img src="https://bit.ly/3fMpvRp" alt="Đà Nẵng"
+                        style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px;">
+                    <div id="introduce">
+                        <ul>
+                            <li><i class="fa fa-bus"></i> Departure: <a>Da Nang</a></li>
+                            <li><i class="fa fa-phone"></i> Hotline: <a>1900 6067</a></li>
+                            <li><i class="fa fa-map-marker"></i> Destination: Ho Chi Minh, Ha Noi, Sa Pa, Hue,...</li>
+                        </ul>
+                        <div class="view-detail">
+                            <b><i class="fa fa-angle-double-right"></i><a href="#"> View detail</a></b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <img src="https://bit.ly/3by7J1e" alt="Nha Trang"
+                        style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px;">
+                    <div id="introduce">
+                        <ul>
+                            <li><i class="fa fa-bus"></i> Departure: <a>Nha Trang</a></li>
+                            <li><i class="fa fa-phone"></i> Hotline: <a>1900 6067</a></li>
+                            <li><i class="fa fa-map-marker"></i> Destination: Da Lat, Vung Tau, Can Tho,...</li>
+                        </ul>
+                        <div class="view-detail">
+                            <b><i class="fa fa-angle-double-right"></i><a href="#"> View detail</a></b>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <img src="http://bit.ly/2s3q4SD" alt="Hà Nội"
+                        style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px;">
+                    <div id="introduce">
+                        <ul>
+                            <li><i class="fa fa-bus"></i> Departure: <a>Ha Noi</a></li>
+                            <li><i class="fa fa-phone"></i> Hotline: <a>1900 6067</a></li>
+                            <li><i class="fa fa-map-marker"></i> Destination: Da Nang, Sa Pa, Ho Chi Minh,...</li>
+                        </ul>
+                        <div class="view-detail">
+                            <b><i class="fa fa-angle-double-right"></i><a href="#"> View detail</a></b>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <img src="http://bit.ly/37i0cmd" alt="Vũng Tàu"
+                        style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px;">
+                    <div id="introduce">
+                        <ul>
+                            <li><i class="fa fa-bus"></i> Departure: <a>Vung Tau</a></li>
+                            <li><i class="fa fa-phone"></i> Hotline: <a>1900 6067</a></li>
+                            <li><i class="fa fa-map-marker"></i> Destination: Ho Chi Minh, Nha Trang, Can Tho,...</li>
+                        </ul>
+                        <div class="view-detail">
+                            <b><i class="fa fa-angle-double-right"></i><a href="#"> View detail</a></b>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </article>
+    <article class="information">
+        <h1>Why choose T-Rex Bus?</h1>
+        <div class="row introduce">
+            <div class="col-4">
+                <img src="https://img.icons8.com/dusk/64/000000/security-configuration.png"/>
+                <input type="text" id="text">
+                <p>With Safety we have brought in a set of measures 
+                    like Sanitized buses, mandatory masks etc. to ensure you travel safely.</p>
+            </div>
+            <div class="col-4">
+                <img src="https://img.icons8.com/dusk/64/000000/low-price.png"/>
+                <input type="text" id="text">
+                <p>We always give you the lowest price with the best partner offers.</p>
+            </div>
+            <div class="col-4 ">
+                <img src="https://img.icons8.com/cotton/64/000000/customer-support.png"/>
+                <input type="text" id="text">
+                <p>We put our experience and relationships to good use and are available 
+                    to solve your travel issues.</p>
+            </div>
+        </div>
+    </article>
 
-			  	<select name="str" class="custom-select" style="width: 180px;" required>
-
-
-
-			  	</select>
-			  	<label for="select" style="padding-left: 40px; padding-right: 3px; color: #FFFFFF;"><b>Destination: </b></label>
-			  	<select name="des" class="custom-select" style="width: 180px;" required>
-
-
-			  	</select>
-			  	<label for="select" style="padding-left: 40px;padding-right: 3px; color: #FFFFFF;"><b>Depart Date: </b></label>
-			  	<input  class="custom-date form-control" type="date" style="margin-right: 30px; width: 180px;" required name="departDate">
-			  	<input style="width: 72px;height: 35px" type="submit" class="btn btn-primary btn-sm btn-submit" value="Find">
-	
-			</form>
-	</div>
-	</article>
-	
-
+    <!-- Footer -->
+    <footer class="page-footer font-small special-color-dark pt-4"> 
+        <div class="row footer">
+            <div class="col-3 column1">
+                <h5>About T-Rex</h5>
+                <ul>
+                    <li>About us</li>
+                    <li>Contact us</li>
+                    <li>Sitemap</li>
+                    <li>Offers</li>
+                    <li>Carrers</li>
+                </ul>
+                <i class="far fa-copyright"></i> 2020 Copyright <a href=""> T-RexBus</a>
+            </div>
+            <div class="col-3 column2">
+                <h5>Information</h5>
+                <ul>
+                    <li>Term & Condition</li>
+                    <li>Privacy Policy</li>
+                    <li>Agent Registration</li>
+                    <li>Insurance Partner</li>
+                    <li>User Agreement</li>
+                </ul>
+            </div>
+            <div class="col-3 column3">
+                <h5>Our Partners</h5>
+                <ul>
+                    <li>Pay Pal</li>
+                    <li>Visa/Master Card</li>
+                    <li>Debit/Credit Card</li>
+                </ul>
+            </div>
+            <div class="col-3 column4">
+                <h5>T-Rex Bus</h5>
+                <p>T-Rex Bus is the world's largest online bus ticket 
+                    booking service trusted by over 10 million happy customers globally.
+                    T-Rex Bus offers bus ticket booking through its website for all major routes.</p>
+                <img src="https://img.icons8.com/fluent/48/000000/facebook-new.png"/>
+                <img src="https://img.icons8.com/fluent/48/000000/google-plus.png"/>
+                <img src="https://img.icons8.com/color/48/000000/twitter-circled.png"/>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer -->
 </body>
 </html>

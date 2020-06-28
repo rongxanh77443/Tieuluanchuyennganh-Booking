@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>T-Rex Bus</title>
 <link rel="shortcut icon" href="http://example.com/favicon.ico" />
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/def/css/style.css">
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
 	integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
@@ -12,10 +13,67 @@
 <link rel="stylesheet" href="/def/vendor/bootstrap/bootstrap.min.css">
 <script src="/def/vendor/jquery/jquery.js"></script>
 <script src="/def/vendor/bootstrap/bootstrap.min.js"></script>
-<link href="/def/css/homepage.css" style="text/css" rel="stylesheet">
-<link rel="shortcut icon" href="/def/images/icon.ico">
+<link href="/def/css/login.css" style="text/css" rel="stylesheet">
+<link rel="shortcut icon" href="/def/images/icon.ico"> -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Login to T-Rex Bus</title>
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+<link rel="stylesheet" href="def/vendor/bootstrap/bootstrap.min.css">
+<script src="def/vendor/jquery/jquery.js"></script>
+<script src="def/vendor/bootstrap/bootstrap.min.js"></script>
+<link rel="stylesheet" href="css/login.css">
+<link rel="shortcut icon" href="def/images/icon.ico">
 </head>
 <body>
+	<div class="container-login">
+		<p th:if="${param.error}" class="error">Invalid email or password</p>
+		<p th:if="${param.logout}" class="success">You have been logged
+			out</p>
+			
+		<div class="wrap-login">
+			<form th:action="@{/logining}" method="POST">
+				<h2>Login T-Rex Bus</h2>
+				<input type="hidden" name="redirectId" value="" />
+				<div class="icon-login-form">
+					<img
+						src="https://i.pinimg.com/originals/ec/7b/78/ec7b78ab3079ace000a7bb5ab3f7c583.gif">
+				</div>
+				<br />
+				<div class="wrap-input" data-validate="Valid email is: a@b.c">
+					<input type="text" placeholder="Username" name="username">
+				</div>
+				<div class="wrap-input" data-validate="Please fill in password!">
+					<input type="password" placeholder="Password" name="password">
+				</div>
+				<div class="ck">
+					<input type="checkbox" name=""> Remember password
+				</div>
+				<div class="input-btn">
+					<button type="submit">Login</button>
+				</div>
+				<div>
+					<a
+						href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8080/login-google&response_type=code
+    &client_id=973442002216-jnaf8haqe97mpnk0mdc5ldfdlj5g37ht.apps.googleusercontent.com&approval_prompt=force">Login
+						With Gmail</a>
+				</div>
+				<div class="input-option">
+					<div class="register">
+						<a href="/register">Register</a>
+					</div>
+					<div class="forget">
+						<a href="forgotPassword.html">Forgot password</a>
+					</div>
+				</div>
+			 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			</form>
+		</div>
+	</div>
+
+	<!-- <body>
 	<th:block th:include="/tags/headerindex"></th:block>
 	<form class="login-form" method="POST" action="/login-user">
 		<div class="limiter">
@@ -25,9 +83,9 @@
 					<span class="title-login-form">Login Bus Ticket</span>
 					<div class="icon-login-form">
 						<img
-							src="https://img.lovepik.com/original_origin_pic/19/01/07/4b5dcca1acbb615c893638ba35f98b03.png_wh860.png">
+							src="https://i.pinimg.com/originals/ec/7b/78/ec7b78ab3079ace000a7bb5ab3f7c583.gif">
 						<div class="wrap-input">
-							<input type="text" name="username">
+							<input type="text" name="username"> 
 						</div>
 						<div class="wrap-input">
 							<input type="password" name="password">
@@ -47,12 +105,9 @@
 							</div>
 						</div>
 					</div>
-
-
-
 				</div>
 			</div>
 		</div>
-	</form>
+	</form> -->
 </body>
 </html>

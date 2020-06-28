@@ -1,13 +1,23 @@
 package com.TLCN_BOOKING.models;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+
 @Entity(name="users")
 public class User {
+	
+	public User() {
+		
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,24 +36,23 @@ public class User {
 	@Column(name="active", nullable = false)
 	private Integer active;
 	
-	@Column(name="roleuserid", nullable = false)
-	private Integer roleuserid;
-	
-	
-	public User() {
-		
-	}
-	
-	public User(String username, String email, String password, Integer active, Integer roleuserid) {
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "userrole",
+            joinColumns =@JoinColumn(name = "userid"),
+            inverseJoinColumns = @JoinColumn(name = "roleid")
+    )
+	private Set<Role> roles;
+
+	public User(int id, String username, String email, String password, Integer active, Set<Role> roles) {
 		super();
+		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.active = active;
-		this.roleuserid = roleuserid;
+		this.roles = roles;
 	}
-
-
 
 	public int getId() {
 		return id;
@@ -86,13 +95,13 @@ public class User {
 		this.active = active;
 	}
 
-	public int getRoleuserid() {
-		return roleuserid;
-	}
+	public Set<Role> getRoles() {
+        return roles;
+    }
 
-	public void setRoleuserid(Integer roleuserid) {
-		this.roleuserid = roleuserid;
-	}
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 
 
 

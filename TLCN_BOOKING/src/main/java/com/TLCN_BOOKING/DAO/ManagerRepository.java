@@ -12,7 +12,6 @@ import com.TLCN_BOOKING.models.User;
 public interface ManagerRepository extends CrudRepository<Manager, Integer>{
 
 	public Collection<Manager> findAll();
-
 	public Manager findByUser(User user);
 	public Manager findById(int id);
 }
