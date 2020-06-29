@@ -32,6 +32,7 @@ import com.TLCN_BOOKING.Services.roleService;
 import com.TLCN_BOOKING.models.User;
 import com.TLCN_BOOKING.models.Customer;
 import com.TLCN_BOOKING.models.GooglePojo;
+import com.TLCN_BOOKING.models.Manager;
 import com.TLCN_BOOKING.models.Role;
 
 @Controller
@@ -93,6 +94,7 @@ public class LoginController {
 		if (userService.findUserByUsername(userDetail.getUsername()) != null) {
 			System.out.println("Tài khoản đăng nhập thành công");
 			request.setAttribute("user", userService.findUserByUsername(userDetail.getUsername()));
+			request.setAttribute("nameofuser", userDetail.getUsername());
 			request.setAttribute("customer",
 					customerSv.findByUser(userService.findUserByUsername(userDetail.getUsername())));
 			request.setAttribute("listCountry", countrySv.findAllcountry());
@@ -134,12 +136,11 @@ public class LoginController {
 			request.setAttribute("user", userService.findUserByUsername(userDetail.getUsername()));
 			request.setAttribute("customer",
 					customerSv.findByUser(userService.findUserByUsername(userDetail.getUsername())));
-
+			request.setAttribute("nameofuser", userDetail.getUsername());
 			request.setAttribute("listCountry", countrySv.findAllcountry());
 			return "/CustomerView/Home";
 		}
 	}
-	
 
 	@RequestMapping(value = "save-regis", method = RequestMethod.GET)
 	public String register(HttpServletRequest request) {
@@ -187,16 +188,38 @@ public class LoginController {
 
 	@GetMapping("/HomePage1")
 	public String CustomerHomePage(HttpServletRequest request) {
-		
 
-		
-		
-		System.out.println("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
-		
-		
-		request.setAttribute("listCountry", countrySv.findAllcountry());
+		// Username của user
+		User user = userService.findUserByUsername(request.getUserPrincipal().getName());
+		request.setAttribute("user", user);
+		String username = user.getUsername();
+		// Phân chia role để chuyển hướng trang
+		// Lấy role
+		String nameRoleuser = user.getRoles().iterator().next().getName();
+		if (nameRoleuser.equals("admin")) {
+			System.out.println("Đăng nhập với quyền là :" + nameRoleuser);
+			Manager manager = managerSv.findByUser(user);
+			request.setAttribute("nameofuser", user.getUsername());
+			request.setAttribute("profile", manager);
+			request.setAttribute("listUsers", userService.findAllUser());
+			return "/AdminView/ManagementUsers";
+		} else if (nameRoleuser.equals("customer")) {
+			System.out.println("Đăng nhập với quyền là :" + nameRoleuser);
+			Customer customer = customerSv.findByUser(user);
+			request.setAttribute("listCountry", countrySv.findAllcountry());
+			request.setAttribute("nameofuser", customer.getName());
+			return "/CustomerView/Home";
+		} else {
+			System.out.println("Đăng nhập với quyền là :" + nameRoleuser);
+			request.setAttribute("nameofuser", customerSv
+					.findByUser(userService.findUserByUsername(request.getUserPrincipal().getName())).getName());
 
-		return "/CustomerView/Home";
+			return "/CustomerView/ManagementUsers";
+		}
+
+		// request.setAttribute("nameofuser",
+		// customerSv.findByUser(userService.findUserByUsername(request.getUserPrincipal().getName())).getName());
+
 		// }
 	}
 

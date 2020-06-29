@@ -15,6 +15,7 @@
 </head>
 
 <body>
+<input type="hidden" th:value=${user} th:name=userid>
 	<!-- Header -->
 	<header class="header">
 		<nav
@@ -38,7 +39,7 @@
 				</a></li>
 				<div class="text-primary" id="hi-user"
 					style="padding-top: 15px; padding-right: 10px"
-					th:text="'Xin chào, '+ ${#request.userPrincipal.name}"></div>
+					th:text="'Xin chào, '+ ${nameofuser}"></div>
 				<div class="dropdown float-right" style="padding-top: 10px;"></div>
 					<!-- Dropdown when user don't login -->
 					<div class="dropdown float-right">

@@ -1,7 +1,9 @@
 package com.TLCN_BOOKING.controllers;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.tree.ExpandVetoException;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,12 +15,16 @@ import com.TLCN_BOOKING.Services.ManagerService;
 import com.TLCN_BOOKING.Services.UserService_1;
 import com.TLCN_BOOKING.Services.carService;
 import com.TLCN_BOOKING.Services.customerService;
+import com.TLCN_BOOKING.Services.roleService;
 import com.TLCN_BOOKING.Services.routeService;
 import com.TLCN_BOOKING.Services.seatService;
 import com.TLCN_BOOKING.Services.sessionService;
 import com.TLCN_BOOKING.models.Car;
+import com.TLCN_BOOKING.models.Customer;
+import com.TLCN_BOOKING.models.Manager;
 import com.TLCN_BOOKING.models.Route;
 import com.TLCN_BOOKING.models.Session;
+import com.TLCN_BOOKING.models.User;
 
 @Controller
 public class AdminController {
@@ -47,8 +53,9 @@ public class AdminController {
 	@Autowired
 	sessionService sessionSv;
 
-	
-	
+	@Autowired
+	roleService roleSv;
+
 	@GetMapping(value = "/profile/{id}")
 	public String profile(@PathVariable("id") String userid, HttpServletRequest request) {
 		request.setAttribute("user", userService.findById(Integer.parseInt(userid)));
@@ -92,50 +99,6 @@ public class AdminController {
 		request.setAttribute("listRoutes", routeSv.findAllRoute());
 		return "AdminView/ManagementRoute";
 	}
-
-	/*
-	 * @GetMapping(value = "/edit/{userid}/{usersid}/{action}") public String
-	 * edituser(@PathVariable("userid") int userid, @PathVariable("usersid") int
-	 * usersid,
-	 * 
-	 * @PathVariable("action") String action, HttpServletRequest request) {
-	 * System.out.println("Action edit la:   " + action);
-	 * request.setAttribute("user", userService.findById(userid)); if
-	 * (action.equals("user")) { request.setAttribute("users",
-	 * userService.findById(usersid)); if ((userService.findById(usersid).getRoleuserid() == 1
-	 * || userService.findById(usersid).getRoleuserid() == 2)) {
-	 * System.out.println("Edit Manager: " +
-	 * managerSv.findByUser(userService.findById(usersid)).getName());
-	 * request.setAttribute("profile",
-	 * managerSv.findByUser(userService.findById(usersid)));
-	 * System.out.println(managerSv.findByUser(userService.findById(usersid)).getName() +
-	 * "     :Name Manager Choosed"); request.setAttribute("role", 1); if
-	 * (userService.findById(usersid).getRoleuserid() == 1)
-	 * request.setAttribute("rolename", "Admin"); else
-	 * request.setAttribute("rolename", "Seller"); } else {
-	 * System.out.println("Edit customer: " +
-	 * customerSv.findByUser(userService.findById(usersid)).getName());
-	 * request.setAttribute("role", 3); request.setAttribute("profile",
-	 * customerSv.findByUser(userService.findById(usersid)));
-	 * request.setAttribute("rolename", "Customer"); }
-	 * System.out.println(userService.findById(usersid).getRoleuserid() +
-	 * "     :RoleUserid Choosed"); } if (action.equals("manager")) {
-	 * request.setAttribute("users",
-	 * userService.findById(managerSv.findById(usersid).getUser().getId()));
-	 * System.out.println("Edit Manager: " + managerSv.findById(usersid).getName());
-	 * request.setAttribute("profile", managerSv.findById(usersid));
-	 * request.setAttribute("role", 1); if (userService.findById(usersid).getRoleuserid()
-	 * == 1) request.setAttribute("rolename", "Admin"); else
-	 * request.setAttribute("rolename", "Seller"); } if (action.equals("customer"))
-	 * { request.setAttribute("users",
-	 * userService.findById(customerSv.findById(usersid).getUser().getId()));
-	 * System.out.println("Edit customer: " +
-	 * customerSv.findById(usersid).getName()); request.setAttribute("role", 3);
-	 * request.setAttribute("profile", customerSv.findById(usersid));
-	 * request.setAttribute("rolename", "Customer"); }
-	 * 
-	 * return "AdminView/Edit"; }
-	 */
 
 	@GetMapping(value = "/edit2/{userid}/{nousersid}/{action}")
 	public String editnopeople(@PathVariable("userid") int userid, @PathVariable("nousersid") int nousersid,
@@ -222,7 +185,7 @@ public class AdminController {
 					return "redirect:/customer-list/" + userid;
 				} else {
 					if (action.equals("car")) {
-						for (Session session : sessionSv.sessionRepository.findAllByCar(carSv.findById(deleteid))){
+						for (Session session : sessionSv.sessionRepository.findAllByCar(carSv.findById(deleteid))) {
 							sessionSv.delete(session.getId());
 						}
 						seatSv.delete(carSv.findById(deleteid).getId());
@@ -230,7 +193,7 @@ public class AdminController {
 						System.out.println("Id car sẽ xóa: " + deleteid);
 						return "redirect:/car-list/" + userid;
 					} else {
-						for (Session session : sessionSv.findAllByRoute(routeSv.findById(deleteid))){
+						for (Session session : sessionSv.findAllByRoute(routeSv.findById(deleteid))) {
 							sessionSv.delete(session.getId());
 						}
 						routeSv.delete(deleteid);
@@ -242,59 +205,113 @@ public class AdminController {
 		}
 	}
 
-	@GetMapping(value = "/add/{userid}/{action}")
-	public String addnew(@PathVariable("userid") int userid, @PathVariable("action") String action,
-			HttpServletRequest request) {
-		request.setAttribute("user", userService.findById(userid));
-		request.setAttribute("userid", userid);
-		if (action.equals("user") || action.equals("customer"))
-			return "redirect:/register";
-		if (action.equals("seller")) {
-			request.setAttribute("action", "seller");
+	@GetMapping(value = "/save-regis-admin")
+	public String addnew(HttpServletRequest request) {
+		String userid = request.getParameter("userid");
+		String action = request.getParameter("action");
+		request.setAttribute("user", userService.findById(Integer.parseInt(userid)));
+		if (action.equals("addnewaccount_user")) {
+			System.out.println("Action: thêm user mới từ view managementusers");
+			User user = new User();
+			user.setUsername(request.getParameter("newusername"));
+			user.setEmail(request.getParameter("newemail"));
+			user.setPassword(BCrypt.hashpw(request.getParameter("newpassword"), BCrypt.gensalt()));
+			user.setActive(1);
+			String newnamerole = request.getParameter("newrole");
+			System.out.println("User mới có role là: "+ newnamerole);
+			user.setRoles(roleSv.findRoleByName(newnamerole));
+			try {
+				userService.saveUser(user);
+				System.out.println("Đã lưu thành công user: " + user.getUsername());
+				if (newnamerole.equals("Customer")) {
+					System.out.println("user thêm mới là : " + newnamerole);
+					Customer customer = new Customer();
+					customer.setName(request.getParameter("newname"));
+					customer.setDateofbirth(request.getParameter("newdateofbirth"));
+					customer.setGender(request.getParameter("newgender"));
+					customer.setCountry(request.getParameter("newcountry"));
+					customer.setPhonenumber(request.getParameter("newphonenumber"));
+					customer.setShowprofile(1);
+					customer.setUser(user);
+					try {
+						customerSv.saveCustomer(customer);
+						System.out.println("Đã lưu thành công customer: " + customer.getName());
+						// Load lại trang
+						request.setAttribute("nameofuser", user.getUsername());
+						request.setAttribute("listUsers", userService.findAllUser());
+						return "/AdminView/ManagementUsers";
+					} catch (Exception e) {
+						System.out.println("Không lưu thành công customer!!");
+						userService.delete(user.getId());
+					// Load lại trang
+						request.setAttribute("nameofuser", user.getUsername());
+						request.setAttribute("listUsers", userService.findAllUser());
+						return "/AdminView/ManagementUsers";
+					}
+
+				}
+				if (newnamerole.equals("Employees")) {
+					System.out.println("user thêm mới là : " + newnamerole);
+					Manager newmanager = new Manager();
+					newmanager.setName(request.getParameter("newname"));
+					newmanager.setDateofbirth(request.getParameter("newdateofbirth"));
+					newmanager.setGender(request.getParameter("newgender"));
+					newmanager.setPhonenumber(request.getParameter("newphonenumber"));
+					newmanager.setShowprofile(1);
+					newmanager.setUser(user);
+					try {
+						managerSv.saveManager(newmanager);
+						System.out.println("Đã lưu thành công customer: " + newmanager.getName());
+						// Load lại trang
+						request.setAttribute("nameofuser", user.getUsername());
+						request.setAttribute("listUsers", userService.findAllUser());
+						return "/AdminView/ManagementUsers";
+					} catch (Exception e) {
+						System.out.println("Không lưu thành công customer: "+e);
+						managerSv.delete(newmanager.getId());
+
+						// Load lại trang
+						request.setAttribute("nameofuser", user.getUsername());
+						request.setAttribute("listUsers", userService.findAllUser());
+						return "/AdminView/ManagementUsers";
+					}
+				}
+
+			} catch (Exception e) {
+				System.out.println("Không lưu được user: "+ e);
+				// Load lại trang
+				
+				request.setAttribute("nameofuser", user.getUsername());
+				request.setAttribute("listUsers", userService.findAllUser());
+				return "/AdminView/ManagementUsers";
+			}
 		}
-		if (action.equals("route")) {
-			request.setAttribute("action", "route");
-		}
-		if (action.equals("car")) {
-			request.setAttribute("action", "car");
-		}
-		return "/AdminView/New";
+		
+		request.setAttribute("nameofuser", userService.findById(Integer.parseInt(userid)).getUsername());
+		request.setAttribute("listUsers", userService.findAllUser());
+		return "/AdminView/ManagementCustomer";
+		
 	}
 
-	/*
-	 * @PostMapping(value="/savenewmanager") public String
-	 * savenewmanager(@RequestParam("object") String action, @RequestParam("userid")
-	 * int userid,
-	 * 
-	 * @RequestParam String username, @RequestParam String email, @RequestParam
-	 * String name,
-	 * 
-	 * @RequestParam String dateofbirth, @RequestParam String gender, @RequestParam
-	 * String phonenumber,
-	 * 
-	 * @RequestParam String password, HttpServletRequest request) { User user =new
-	 * User(username,email,password,1,2); userService.saveUser(user); Manager manager=new
-	 * Manager(name,dateofbirth,gender,phonenumber,1,user);
-	 * managerSv.saveManager(manager); request.setAttribute("user",
-	 * userService.findById(userid)); System.out.println("Action them moi acmin!");
-	 * request.setAttribute("listmanager", managerSv.findAllManager()); return
-	 * "redirect:/seller-list/"+userid; }
-	 */
-	@PostMapping(value="/savenewcar")
-	public String savenewcar(@RequestParam("object") String action, @RequestParam("userid") int userid,@RequestParam String carname,HttpServletRequest request) {
-		Car car=new Car(carname);
+	@PostMapping(value = "/savenewcar")
+	public String savenewcar(@RequestParam("object") String action, @RequestParam("userid") int userid,
+			@RequestParam String carname, HttpServletRequest request) {
+		Car car = new Car(carname);
 		carSv.saveCar(car);
 		request.setAttribute("user", userService.findById(userid));
 		request.setAttribute("listcars", carSv.findAllCar());
-		return "redirect:/car-list/"+userid;
+		return "redirect:/car-list/" + userid;
 	}
-	@PostMapping(value="/savenewroute")
-	public String savenewroute(@RequestParam("object") String action, @RequestParam("userid") int userid,@RequestParam("carname") int carid, @RequestParam String startingpoint,@RequestParam String destination, @RequestParam String timestarting, @RequestParam String timeexpecting, @RequestParam int price,
+
+	@PostMapping(value = "/savenewroute")
+	public String savenewroute(@RequestParam("object") String action, @RequestParam("userid") int userid,
+			@RequestParam("carname") int carid, @RequestParam String startingpoint, @RequestParam String destination,
+			@RequestParam String timestarting, @RequestParam String timeexpecting, @RequestParam int price,
 			HttpServletRequest request) {
-		Route route =new Route(startingpoint,destination,timestarting,timeexpecting,price,carid);
+		Route route = new Route(startingpoint, destination, timestarting, timeexpecting, price, carid);
 		routeSv.saveRoute(route);
 		request.setAttribute("user", userService.findById(userid));
 		request.setAttribute("listroutes", routeSv.findAllRoute());
-		return "redirect:/route-list/"+userid;
+		return "redirect:/route-list/" + userid;
 	}
 }

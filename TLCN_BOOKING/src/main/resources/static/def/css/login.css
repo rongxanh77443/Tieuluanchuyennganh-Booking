@@ -24,7 +24,7 @@ html {
     padding:0;
 }
 .bbody{
-    background-image: url("../def/images/background.jpg");
+    background-image: url("/def/images/background.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 }

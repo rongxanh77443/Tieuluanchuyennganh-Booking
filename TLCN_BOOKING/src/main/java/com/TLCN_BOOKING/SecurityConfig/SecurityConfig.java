@@ -70,6 +70,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.defaultSuccessUrl("/HomePage1")
 				.failureUrl("/login?message=error")//
 				// Cấu hình cho Logout Page.
-				.and().logout().logoutUrl("/j_spring_security_logout").logoutSuccessUrl("/login?message=logout");
+				.and().logout().logoutUrl("/logout").logoutSuccessUrl("/logout");
 	}
 }
